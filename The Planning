@@ -1,1 +1,100 @@
+Functional requirement
+•	Cataloguing: Creating and managing records for all library materials (books, journals, multimedia, etc.). 
+•	Circulation: Tracking items borrowed and returned by users, managing due dates, and handling renewals. 
+•	Acquisitions: Managing the process of purchasing new materials, including tracking orders, invoices, and budgets. 
+•	Serial Control: Managing subscriptions to journals and other periodicals. 
+•	Reporting: Generating reports on various aspects of library operations, such as circulation statistics and collection usage. 
+•	Online Public Access Catalog (OPAC): Providing a searchable interface for users to find library materials. 
+•	User Management: Managing patron accounts, including registration, borrowing privileges, and fines. 
+•	Interlibrary Loan (ILL): Facilitating the exchange of materials between libraries. 
+•	Mobile Access: Allowing users to access library services and resources through mobile devices. 
+
+Book class:
+•	title
+•	author
+•	unique book id
+•	common book id 
+•	language
+•	number of pages
+•	series
+•	shelf location
+•	genres to genre
+•	content
+•	rating
+•	possession
+•	date of loan
+•	price
+•	year of publication
+•	publisher
+Shelf class: 
+•	name of the shelf
+•	id of shelf
+•	capacity
+•	all books
+•	current books
+•	genre
+Create shelf:
+•	name of shelf
+•	capacity of shelf
+•	id of shelf
+•	CreatShelf(nameofShelf, capacityofShelf, idofshelf)
+
+Create book:
+•	title
+•	author
+•	unique book id
+•	common book id 
+•	language
+•	number of pages
+•	series
+•	shelf location
+•	genres to genre
+•	content
+•	rating
+•	 possession
+•	days-
+•	Price
+•	year of publication
+•	publisher
+•	-GenerateBookId()
+•	CreateBook(Title,Author,ID,Shelf)
+Database:
+•	Pdfs or word documents saved, with all their ids as their access point.
+•	List of members (clients/staff), each identified with their unique member ID 
+•	List of transactions 
+•	Status of each book
+•	GetBookPdf()
+•	GetMemberById()
+•	GetBook()
+•	GetStatusofBook()
+
+Functional requirements:
+•	Add\remove book
+•	Multiple types of users (client/staff)
+•	Manage books:
+o	Rent/buy book (client)
+o	Rent\sell book (library)
+•	Manage shelfs:
+o	Set capacity of shelf
+o	Set genre of shelf
+o	Add/remove books from shelf
+•	Overdue trackability
+•	Fine calculation for late returns or never returned book
+•	Book search
+•	Track availability of book
+•	Ability to categorize a book
+•	Book database
+Nonfunctional requirements:
+•	Secure authentication
+o	Input Username - 
+•	Accessibility
+•	Responsiveness
+•	Scalability 
+Area of improvement:
+•	Responsiveness: 
+o	Bigger and faster server space
+•	Implement an interface/website
+
+List of tasks:
+
 
