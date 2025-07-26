@@ -1,0 +1,75 @@
+from member import Member  # Assume that the Member class is in the member.py file.
+
+class MemberFactory:
+    """Member Factory class, responsible for creating different types of member objects"""
+    
+    @staticmethod
+    def create_member(member_id, name, surname, membership_type, status="active"):
+        """
+        Static method for creating a member instance
+        
+        Parameters:
+            member_id (str): Member ID
+            name (str): Member name
+            surname (str): Member surname
+            membership_type (str): Member type (e.g., “regular”, “premium”, “student”, etc.)
+            status (str): Member status, default is “active”
+        
+        Returns:
+            Member: Member instance
+        
+        Exceptions:
+            ValueError: Raised when input parameters are invalid
+        """
+        # Verify necessary parameters
+        if not all([member_id, name, surname, membership_type]):
+            raise ValueError("Member ID, first name, last name, and membership type cannot be left blank.")
+        
+        # Verify that the membership type is valid.
+        valid_membership_types = ['regular', 'premium', 'student', 'staff']
+        if membership_type.lower() not in valid_membership_types:
+            raise ValueError(f"Invalid membership type. Valid types: {', '.join(valid_membership_types)}")
+        
+        # Verify whether the membership status is valid
+        valid_statuses = ['active', 'inactive', 'suspended']
+        if status.lower() not in valid_statuses:
+            raise ValueError(f"Invalid membership status. Valid status.: {', '.join(valid_statuses)}")
+        
+        # Create and return a member instance
+        return Member(
+            member_id=member_id,
+            name=name,
+            surname=surname,
+            membership_type=membership_type.lower(),
+            status=status.lower()
+        )
+    
+    @staticmethod
+    def create_regular_member(member_id, name, surname):
+        """An easy way to create regular members"""
+        return MemberFactory.create_member(
+            member_id=member_id,
+            name=name,
+            surname=surname,
+            membership_type='regular'
+        )
+    
+    @staticmethod
+    def create_student_member(member_id, name, surname):
+        """创建学生会员的便捷方法"""
+        return MemberFactory.create_member(
+            member_id=member_id,
+            name=name,
+            surname=surname,
+            membership_type='student'
+        )
+    
+    @staticmethod
+    def create_premium_member(member_id, name, surname):
+        """Easy way to create premium memberships"""
+        return MemberFactory.create_member(
+            member_id=member_id,
+            name=name,
+            surname=surname,
+            membership_type='premium'
+        )
