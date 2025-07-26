@@ -1,0 +1,65 @@
+class Member:
+    def __init__(self, member_id, name, surname, membership_type, status):
+        self._memberID = member_id
+        self._name = name
+        self._surname = surname
+        self._membershipType = membership_type
+        self._status = status
+        self._borrowedBooksCount = 0  # Initialise the number of borrowed books to 0.
+        self._outstandingFines = 0.0  # Initialise unpaid fines to 0.0
+
+    # Obtain membership ID
+    def get_member_id(self):
+        return self._memberID
+
+    # Set Member ID
+    def set_member_id(self, member_id):
+        self._memberID = member_id
+
+    # Obtain member name
+    def get_name(self):
+        return self._name
+
+    # Set member name
+    def set_name(self, name):
+        self._name = name
+
+    # Obtain member surname
+    def get_surname(self):
+        return self._surname
+
+    # Set member surname
+    def set_surname(self, surname):
+        self._surname = surname
+
+    # Obtain membership type
+    def get_membership_type(self):
+        return self._membershipType
+
+    # Set membership type
+    def set_membership_type(self, membership_type):
+        self._membershipType = membership_type
+
+    # Obtain membership status
+    def get_status(self):
+        return self._status
+
+    # Set membership status
+    def set_status(self, status):
+        self._status = status
+
+    # Get the number of books borrowed
+    def get_borrowed_books_count(self):
+        return self._borrowedBooksCount
+
+    # Set the number of books borrowed
+    def set_borrowed_books_count(self, count):
+        self._borrowedBooksCount = count
+
+    # Obtain the amount of unpaid fines
+    def get_outstanding_fines(self):
+        return self._outstandingFines
+
+    # Set the amount of unpaid fines
+    def set_outstanding_fines(self, fines):
+        self._outstandingFines = fines
