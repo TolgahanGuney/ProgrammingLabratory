@@ -1,0 +1,123 @@
+class Member:
+    def __init__(self, member_id, name, surname, membership_type, status):
+        self._memberID = member_id
+        self._name = name
+        self._surname = surname
+        self._membershipType = membership_type
+        self._status = status
+        self._borrowedBooksCount = 0
+        self._outstandingFines = 0.0
+
+    # Getter and setter methods (omitted for brevity but should remain)
+    def get_member_id(self):
+        return self._memberID
+
+    def get_name(self):
+        return self._name
+
+    def get_surname(self):
+        return self._surname
+
+    def get_membership_type(self):
+        return self._membershipType
+
+    def get_status(self):
+        return self._status
+
+    def get_borrowed_books_count(self):
+        return self._borrowedBooksCount
+
+    def get_outstanding_fines(self):
+        return self._outstandingFines
+
+    def set_status(self, status):
+        self._status = status
+
+    # New library operation methods
+    def can_borrow_books(self):
+        """Check if member is eligible to borrow books"""
+        if self._status != "active":
+            return False, "Member account is not active"
+        
+        if self._outstandingFines > 0:
+            return False, "Outstanding fines must be paid before borrowing"
+        
+        # Check maximum books allowed based on membership type
+        max_books = self._get_max_borrow_limit()
+        if self._borrowedBooksCount >= max_books:
+            return False, f"Reached maximum borrowing limit ({max_books} books)"
+        
+        return True, "Eligible to borrow"
+
+    def borrow_book(self):
+        """Handle book borrowing process"""
+        eligible, message = self.can_borrow_books()
+        if not eligible:
+            raise ValueError(message)
+        
+        self._borrowedBooksCount += 1
+        return True, f"Book borrowed successfully. Total borrowed: {self._borrowedBooksCount}"
+
+    def return_book(self, days_overdue=0):
+        """Handle book return process, calculate fines for overdue books"""
+        if self._borrowedBooksCount == 0:
+            raise ValueError("Member has no books to return")
+        
+        self._borrowedBooksCount -= 1
+        
+        # Calculate fines if returned overdue
+        if days_overdue > 0:
+            fine_amount = self._calculate_overdue_fine(days_overdue)
+            self._outstandingFines += fine_amount
+            return True, f"Book returned. Overdue fine: ${fine_amount:.2f}. Total fines: ${self._outstandingFines:.2f}"
+        
+        return True, "Book returned successfully"
+
+    def pay_fine(self, amount):
+        """Process fine payment"""
+        if amount <= 0:
+            raise ValueError("Payment amount must be positive")
+        
+        if amount > self._outstandingFines:
+            # Return excess payment if overpaid
+            excess = amount - self._outstandingFines
+            self._outstandingFines = 0
+            return True, f"Fines paid. Excess returned: ${excess:.2f}"
+        
+        self._outstandingFines -= amount
+        return True, f"Fines paid. Remaining fines: ${self._outstandingFines:.2f}"
+
+    def get_full_name(self):
+        """Return member's full name"""
+        return f"{self._name} {self._surname}"
+
+    def _get_max_borrow_limit(self):
+        """Private method to determine maximum books allowed based on membership"""
+        limits = {
+            'regular': 5,
+            'student': 10,
+            'premium': 15,
+            'staff': 20
+        }
+        return limits.get(self._membershipType, 5)  # Default to 5 if type unknown
+
+    def _calculate_overdue_fine(self, days_overdue):
+        """Private method to calculate overdue fines based on membership"""
+        rates = {
+            'regular': 0.50,
+            'student': 0.25,
+            'premium': 0.30,
+            'staff': 0.20
+        }
+        daily_rate = rates.get(self._membershipType, 0.50)
+        return days_overdue * daily_rate
+
+    def __str__(self):
+        """String representation of member"""
+        return (f"Member ID: {self._memberID}\n"
+                f"Name: {self.get_full_name()}\n"
+                f"Membership: {self._membershipType.title()}\n"
+                f"Status: {self._status.title()}\n"
+                f"Books Borrowed: {self._borrowedBooksCount}\n"
+                f"Outstanding Fines: ${self._outstandingFines:.2f}")
+    
